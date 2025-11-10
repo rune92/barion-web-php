@@ -27,6 +27,21 @@ include 'helpers' . DIRECTORY_SEPARATOR . 'loader.php';
 
 class BarionClient
 {
+    public const BARION_API_URL_PROD               = "https://api.barion.com";
+    public const BARION_WEB_URL_PROD               = "https://secure.barion.com/Pay";
+    public const BARION_API_URL_TEST               = "https://api.test.barion.com";
+    public const BARION_WEB_URL_TEST               = "https://secure.test.barion.com/Pay";
+
+    public const API_ENDPOINT_PREPAREPAYMENT       = "/Payment/Start";
+    public const API_ENDPOINT_GETPAYMENTSTATE      = "/Payment/GetPaymentState";
+    public const API_ENDPOINT_PAYMENTSTATE         = "/Payment/{paymentId}/PaymentState";
+    public const API_ENDPOINT_QRCODE               = "/QR/Generate";
+    public const API_ENDPOINT_REFUND               = "/Payment/Refund";
+    public const API_ENDPOINT_FINISHRESERVATION    = "/Payment/FinishReservation";
+    public const API_ENDPOINT_CAPTURE              = "/Payment/Capture";
+    public const API_ENDPOINT_CANCELAUTHORIZATION  = "/Payment/CancelAuthorization";
+    public const API_ENDPOINT_3DS_COMPLETE         = "/Payment/Complete";
+
     private $Environment;
 
     private $Password;
@@ -56,14 +71,14 @@ class BarionClient
         switch ($env) {
 
             case BarionEnvironment::Test:
-                $this->BARION_API_URL = BARION_API_URL_TEST;
-                $this->BARION_WEB_URL = BARION_WEB_URL_TEST;
+                $this->BARION_API_URL = BarionClient::BARION_API_URL_TEST;
+                $this->BARION_WEB_URL = BarionClient::BARION_WEB_URL_TEST;
                 break;
 
             case BarionEnvironment::Prod:
             default:
-                $this->BARION_API_URL = BARION_API_URL_PROD;
-                $this->BARION_WEB_URL = BARION_WEB_URL_PROD;
+                $this->BARION_API_URL = BarionClient::BARION_API_URL_PROD;
+                $this->BARION_WEB_URL = BarionClient::BARION_WEB_URL_PROD;
                 break;
         }
 
