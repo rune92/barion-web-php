@@ -97,7 +97,7 @@ class BarionClient
     public function PreparePayment(PreparePaymentRequestModel $model)
     {
         $model->POSKey = $this->POSKey;
-        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . API_ENDPOINT_PREPAREPAYMENT;
+        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . BarionClient::API_ENDPOINT_PREPAREPAYMENT;
         $response = $this->PostToBarion($url, $model);
         $rm = new PreparePaymentResponseModel();
         if (!empty($response)) {
@@ -120,7 +120,7 @@ class BarionClient
     public function FinishReservation(FinishReservationRequestModel $model)
     {
         $model->POSKey = $this->POSKey;
-        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . API_ENDPOINT_FINISHRESERVATION;
+        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . BarionClient::API_ENDPOINT_FINISHRESERVATION;
         $response = $this->PostToBarion($url, $model);
         $rm = new FinishReservationResponseModel();
         if (!empty($response)) {
@@ -140,7 +140,7 @@ class BarionClient
     public function Capture(CaptureRequestModel $model)
     {
         $model->POSKey = $this->POSKey;
-        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . API_ENDPOINT_CAPTURE;
+        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . BarionClient::API_ENDPOINT_CAPTURE;
         $response = $this->PostToBarion($url, $model);
         $captureResponse = new CaptureResponseModel();
         if (!empty($response)) {
@@ -160,7 +160,7 @@ class BarionClient
     public function CancelAuthorization(CancelAuthorizationRequestModel $model)
     {
         $model->POSKey = $this->POSKey;
-        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . API_ENDPOINT_CANCELAUTHORIZATION;
+        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . BarionClient::API_ENDPOINT_CANCELAUTHORIZATION;
         $response = $this->PostToBarion($url, $model);
         $cancelAuthResponse = new CancelAuthorizationResponseModel();
         if (!empty($response)) {
@@ -179,7 +179,7 @@ class BarionClient
     public function Complete3DSPayment(Complete3DSPaymentRequestModel $model)
     {
         $model->POSKey = $this->POSKey;
-        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . API_ENDPOINT_3DS_COMPLETE;
+        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . BarionClient::API_ENDPOINT_3DS_COMPLETE;
         $response = $this->PostToBarion($url, $model);
         $rm = new Complete3DSPaymentResponseModel();
         if (!empty($response)) {
@@ -198,7 +198,7 @@ class BarionClient
     public function RefundPayment(RefundRequestModel $model)
     {
         $model->POSKey = $this->POSKey;
-        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . API_ENDPOINT_REFUND;
+        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . BarionClient::API_ENDPOINT_REFUND;
         $response = $this->PostToBarion($url, $model);
         $rm = new RefundResponseModel();
         if (!empty($response)) {
@@ -219,7 +219,7 @@ class BarionClient
     {
         $model = new PaymentStateRequestModel($paymentId);
         $model->POSKey = $this->POSKey;
-        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . API_ENDPOINT_PAYMENTSTATE;
+        $url = $this->BARION_API_URL . "/v" . $this->APIVersion . BarionClient::API_ENDPOINT_PAYMENTSTATE;
         $response = $this->GetFromBarion($url, $model);
         $ps = new PaymentStateResponseModel();
         if (!empty($response)) {
@@ -249,7 +249,7 @@ class BarionClient
         $model->UserName = $username;
         $model->Password = $password;
         $model->Size = $qrCodeSize;
-        $url = $this->BARION_API_URL . API_ENDPOINT_QRCODE;
+        $url = $this->BARION_API_URL . BarionClient::API_ENDPOINT_QRCODE;
         $response = $this->GetFromBarion($url, $model);
         return $response;
     }
