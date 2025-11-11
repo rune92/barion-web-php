@@ -116,7 +116,7 @@ class JSON {
      * @param string $propertyName
      * @return ?array The value of the property as an array
      */ 
-    public static function getArray(mixed $json, string $propertyName): ?array
+    public static function getArray($json, string $propertyName): ?array
     {
         if (!isset($json[$propertyName])) {
             return null;
