@@ -26,4 +26,29 @@ class AccountCreationIndicator
     const LessThan30Days = "LessThan30Days";
     const Between30And60Days = "Between30And60Days";
     const MoreThan60Days = "MoreThan60Days";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::Unspecified,
+            self::NoAccount,
+            self::CreatedDuringThisTransaction,
+            self::LessThan30Days,
+            self::Between30And60Days,
+            self::MoreThan60Days,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // fallback for invalid or unknown values
+        return self::Unspecified;
+    }
 }

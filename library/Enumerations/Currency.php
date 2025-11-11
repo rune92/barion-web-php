@@ -27,4 +27,18 @@ class Currency
     const CZK = "CZK";
     const RON = "RON";
     const PLN = "PLN";
+
+    public static function from(?string $value): string
+    {
+        $allowed = [
+            self::HUF,
+            self::EUR,
+            self::USD,
+            self::CZK,
+            self::RON,
+            self::PLN,
+        ];
+
+        return in_array($value, $allowed, true) ? $value : self::Unspecified;
+    }
 }

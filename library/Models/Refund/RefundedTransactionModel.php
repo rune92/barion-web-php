@@ -62,7 +62,7 @@ class RefundedTransactionModel implements IBarionModel
      * 
      * @var TransactionStatus
      */
-    public TransactionStatus $Status;
+    public string $Status;
 
     function __construct()
     {

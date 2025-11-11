@@ -26,4 +26,29 @@ class CardType
     const Visa = "Visa";
     const Electron = "Electron";
     const AmericanExpress = "AmericanExpress";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::Unknown,
+            self::Mastercard,
+            self::Maestro,
+            self::Visa,
+            self::Electron,
+            self::AmericanExpress,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // fallback for invalid or missing values
+        return self::Unknown;
+    }
 }

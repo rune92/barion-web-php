@@ -26,4 +26,29 @@ class FundingSourceType
     const BankTransfer = "BankTransfer";
     const ApplePay = "ApplePay";
     const GooglePay = "GooglePay";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::All,
+            self::Balance,
+            self::Bankcard,
+            self::BankTransfer,
+            self::ApplePay,
+            self::GooglePay,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // fallback if value is invalid or missing
+        return self::All;
+    }
 }

@@ -56,7 +56,7 @@ class CancelAuthorizationResponseModel extends BaseResponseModel implements IBar
      * 
      * @var PaymentStatus
      */
-    public PaymentStatus $Status;
+    public string $Status;
     
     /**
      * Array of payment transactions that were cancelled.

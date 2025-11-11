@@ -23,4 +23,26 @@ class RecurrenceType
     const MerchantInitiatedPayment = "MerchantInitiatedPayment";
     const OneClickPayment = "OneClickPayment";
     const RecurringPayment = "RecurringPayment";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::MerchantInitiatedPayment,
+            self::OneClickPayment,
+            self::RecurringPayment,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // fallback if an unknown type is received
+        return self::MerchantInitiatedPayment;
+    }
 }

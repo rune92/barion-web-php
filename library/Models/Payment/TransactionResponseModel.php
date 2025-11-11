@@ -20,9 +20,7 @@ namespace Barion\Models\Payment;
 
 use Barion\Interfaces\IBarionModel;
 use Barion\Helpers\JSON;
-use Barion\Enumerations\{
-    TransactionStatus
-};
+use Barion\Enumerations\TransactionStatus;
 
 /**
  *  Model containing detailed information about a payment transaction in a Barion API response.
@@ -48,7 +46,7 @@ class TransactionResponseModel implements IBarionModel
      * 
      * @var TransactionStatus
      */ 
-    public TransactionStatus $Status;
+    public string $Status;
 
     /** 
      * ISO-8601 format timestamp of the transaction.

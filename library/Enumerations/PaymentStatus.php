@@ -31,4 +31,34 @@ class PaymentStatus
     const Failed = "Failed";
     const PartiallySucceeded = "PartiallySucceeded";
     const Expired = "Expired";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::Prepared,
+            self::Started,
+            self::InProgress,
+            self::Waiting,
+            self::Reserved,
+            self::Authorized,
+            self::Canceled,
+            self::Succeeded,
+            self::Failed,
+            self::PartiallySucceeded,
+            self::Expired,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // fallback if unknown status is returned by API
+        return self::Prepared;
+    }
 }

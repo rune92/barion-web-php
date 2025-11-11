@@ -243,10 +243,10 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * @param Currency $currency
      * @param string|null $traceId
      */
-    function __construct(string $requestId = "", PaymentType $paymentType = PaymentType::Immediate, bool $guestCheckoutAllowed = true, 
-                            array $allowedFundingSources = array(FundingSourceType::All), string $paymentWindow = "00:30:00", UILocale $locale = UILocale::HU, 
+    function __construct(string $requestId = "", string $paymentType = PaymentType::Immediate, bool $guestCheckoutAllowed = true,
+                            array $allowedFundingSources = array(FundingSourceType::All), string $paymentWindow = "00:30:00", string $locale = UILocale::HU,
                             bool $initiateRecurrence = false, string $recurrenceId = null, string $redirectUrl = null, 
-                            string $callbackUrl = null, Currency $currency = Currency::HUF, string $traceId = null)
+                            string $callbackUrl = null, string $currency = Currency::HUF, string $traceId = null)
     {
         $this->PaymentRequestId = $requestId;
         $this->PaymentType = $paymentType;

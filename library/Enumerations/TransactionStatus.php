@@ -39,4 +39,30 @@ class TransactionStatus
     const InvalidPaymentStatus = "InvalidPaymentStatus";
     const PaymentSenderOrRecipientIsInvalid = "PaymentSenderOrRecipientIsInvalid";
     const Unknown = "Unknown";
+
+    public static function from(?string $value): string
+    {
+        $allowed = [
+            self::Prepared,
+            self::Started,
+            self::Succeeded,
+            self::Timeout,
+            self::ShopIsDeleted,
+            self::ShopIsClosed,
+            self::Rejected,
+            self::RejectedByShop,
+            self::Storno,
+            self::Reserved,
+            self::Deleted,
+            self::Expired,
+            self::Authorized,
+            self::Reversed,
+            self::InvalidPaymentRecord,
+            self::PaymentTimeOut,
+            self::InvalidPaymentStatus,
+            self::PaymentSenderOrRecipientIsInvalid,
+        ];
+
+        return in_array($value, $allowed, true) ? $value : self::Unknown;
+    }
 }

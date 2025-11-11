@@ -56,7 +56,7 @@ class Complete3DSPaymentResponseModel extends BaseResponseModel implements IBari
      * 
      * @var PaymentStatus
      */
-    public PaymentStatus $Status;
+    public string $Status;
 
     /** 
      * The trace id of the 3D-Secure payment flow.

@@ -23,4 +23,26 @@ class QRCodeSize
     const Small = "Small";
     const Normal = "Normal";
     const Large = "Large";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::Small,
+            self::Normal,
+            self::Large,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // default fallback
+        return self::Normal;
+    }
 }

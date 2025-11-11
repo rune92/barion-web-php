@@ -56,7 +56,7 @@ class FinishReservationResponseModel extends BaseResponseModel implements IBario
      * 
      * @var PaymentStatus
      */
-    public PaymentStatus $Status;
+    public string $Status;
     
     /**
      * Array of reservation payment transactions that were finished.

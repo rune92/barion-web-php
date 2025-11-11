@@ -53,7 +53,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var AccountCreationIndicator
      */  
-    public AccountCreationIndicator $AccountCreationIndicator;
+    public string $AccountCreationIndicator;
     
     /** 
      * ISO-8601 format timestamp of the last change of the payer account.
@@ -67,7 +67,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var AccountChangeIndicator
      */  
-    public AccountChangeIndicator $AccountChangeIndicator;
+    public string $AccountChangeIndicator;
     
     /** 
      * ISO-8601 format timestamp of the last password change of the payer account.
@@ -81,7 +81,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var PasswordChangeIndicator
      */  
-    public PasswordChangeIndicator $PasswordChangeIndicator;
+    public string $PasswordChangeIndicator;
     
     /** 
      * Number of successful purchases during the last six months made by the payer account.
@@ -102,7 +102,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var ShippingAddressUsageIndicator
      */  
-    public ShippingAddressUsageIndicator $ShippingAddressUsageIndicator;
+    public string $ShippingAddressUsageIndicator;
     
     /** 
      * ISO-8601 format timestamp when a payment method was last added to the payer account.
@@ -116,7 +116,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var PaymentMethodIndicator
      */ 
-    public PaymentMethodIndicator $PaymentMethodIndicator;
+    public string $PaymentMethodIndicator;
     
     /** 
      * Number of successfully added payment methods (e.g. bank cards) the payer account during the last 24 hours.
@@ -144,7 +144,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var SuspiciousActivityIndicator
      */  
-    public SuspiciousActivityIndicator $SuspiciousActivityIndicator;
+    public string $SuspiciousActivityIndicator;
 
     function __construct()
     {

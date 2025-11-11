@@ -50,7 +50,7 @@ class PreparePaymentResponseModel extends BaseResponseModel implements IBarionMo
      * 
      * @var PaymentStatus
      */
-    public PaymentStatus $Status;
+    public string $Status;
     
     /** 
      * Array of payment transactions included in the payment.
@@ -69,9 +69,9 @@ class PreparePaymentResponseModel extends BaseResponseModel implements IBarionMo
     /** 
      * The result of a recurring payment action, if applicable.
      * 
-     * @var RecurrenceResult
+     * @var string
      */
-    public RecurrenceResult $RecurrenceResult;
+    public string $RecurrenceResult;
 
     /** 
      * The Barion Smart Gateway URL the customer should be redirected to, so they can complete the payment.

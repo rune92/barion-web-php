@@ -68,7 +68,7 @@ class TransactionDetailModel implements IBarionModel
      * 
      * @var Currency
      */    
-    public Currency $Currency;
+    public string $Currency;
 
     /** 
      * Information about the payer of the transaction.
@@ -96,14 +96,14 @@ class TransactionDetailModel implements IBarionModel
      * 
      * @var TransactionStatus
      */ 
-    public TransactionStatus $Status;
+    public string $Status;
 
     /** 
      * The type of the transaction.
      * 
      * @var TransactionType
      */ 
-    public TransactionType $TransactionType;
+    public string $TransactionType;
     
     /** 
      * Items included in the transaction.

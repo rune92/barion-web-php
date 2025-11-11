@@ -23,4 +23,26 @@ class SuspiciousActivityIndicator
     const Unspecified = "";
     const NoSuspiciousActivityObserved = "NoSuspiciousActivityObserved";
     const SuspiciousActivityObserved = "SuspiciousActivityObserved";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::Unspecified,
+            self::NoSuspiciousActivityObserved,
+            self::SuspiciousActivityObserved,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // fallback: if the provided value is invalid or null
+        return self::Unspecified;
+    }
 }

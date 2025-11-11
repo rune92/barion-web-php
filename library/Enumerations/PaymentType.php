@@ -23,4 +23,26 @@ class PaymentType
     const Immediate = "Immediate";
     const Reservation = "Reservation";
     const DelayedCapture = "DelayedCapture";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::Immediate,
+            self::Reservation,
+            self::DelayedCapture,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // default fallback
+        return self::Immediate;
+    }
 }

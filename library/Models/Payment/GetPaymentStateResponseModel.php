@@ -86,14 +86,14 @@ class GetPaymentStateResponseModel extends BaseResponseModel implements IBarionM
      * 
      * @var PaymentStatus
      */
-    public PaymentStatus $Status;
+    public string $Status;
 
     /** 
      * The type of the payment.
      * 
      * @var PaymentType
      */
-    public PaymentType $PaymentType;
+    public string $PaymentType;
 
     /** 
      * The funding source used to complete the payment, if applicable.
@@ -170,7 +170,7 @@ class GetPaymentStateResponseModel extends BaseResponseModel implements IBarionM
      * 
      * @var Currency
      */
-    public Currency $Currency;
+    public string $Currency;
     
     /** 
      * Array of payment transactions attached to the payment.
@@ -184,7 +184,7 @@ class GetPaymentStateResponseModel extends BaseResponseModel implements IBarionM
      * 
      * @var UILocale
      */
-    public UILocale $SuggestedLocale;
+    public string $SuggestedLocale;
 
     /** 
      * The fraud risk score connected to the payment, if applicable.

@@ -29,4 +29,32 @@ class UILocale
     const CZ = "cs-CZ";
     const GR = "el-GR";
     const ES = "es-ES";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::HU,
+            self::EN,
+            self::DE,
+            self::SL,
+            self::SK,
+            self::FR,
+            self::CZ,
+            self::GR,
+            self::ES,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        // fallback to default (Hungarian)
+        return self::HU;
+    }
 }

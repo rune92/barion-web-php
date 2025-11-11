@@ -56,7 +56,7 @@ class CaptureResponseModel extends BaseResponseModel implements IBarionModel
      * 
      * @var PaymentStatus
      */
-    public PaymentStatus $Status;
+    public string $Status;
     
     /**
      * Array of payment transactions that were captured.

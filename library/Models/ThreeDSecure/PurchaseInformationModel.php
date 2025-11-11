@@ -38,7 +38,7 @@ class PurchaseInformationModel implements IBarionModel
      * 
      * @var DeliveryTimeframeType
      */ 
-    public DeliveryTimeframeType $DeliveryTimeframe;
+    public ?string $DeliveryTimeframe;
 
     /** 
      * The e-mail address attached to the delivery, if applicable.
@@ -59,14 +59,14 @@ class PurchaseInformationModel implements IBarionModel
      * 
      * @var AvailabilityIndicator
      */
-    public AvailabilityIndicator $AvailabilityIndicator;
+    public ?string $AvailabilityIndicator;
 
     /** 
      * Indicator describing if this purchase is a re-order of a previous purchase.
      * 
      * @var ReOrderIndicator
      */
-    public ReOrderIndicator $ReOrderIndicator;
+    public ?string $ReOrderIndicator;
 
     /**     
      * ISO-8601 format timestamp of the last moment when this purchase can be used a source for a recurring/token payment.
@@ -87,7 +87,7 @@ class PurchaseInformationModel implements IBarionModel
      * 
      * @var ShippingAddressIndicator
      */
-    public ShippingAddressIndicator $ShippingAddressIndicator;
+    public ?string $ShippingAddressIndicator;
 
     /** 
      * Model describing the details of a gift card purchase, if applicable.
@@ -101,7 +101,7 @@ class PurchaseInformationModel implements IBarionModel
      * 
      * @var PurchaseType
      */
-    public PurchaseType $PurchaseType;
+    public ?string $PurchaseType;
 
     /**     
      * ISO-8601 format timestamp of the purchase.

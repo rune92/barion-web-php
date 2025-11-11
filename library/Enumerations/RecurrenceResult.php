@@ -25,4 +25,27 @@ class RecurrenceResult
     const Failed = "Failed";
     const NotFound = "NotFound";
     const ThreeDSAuthenticationRequired = "ThreeDSAuthenticationRequired";
+
+    /**
+     * Emulates enum::from() for PHP 7.4
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from(?string $value)
+    {
+        $allowed = [
+            self::None,
+            self::Successful,
+            self::Failed,
+            self::NotFound,
+            self::ThreeDSAuthenticationRequired,
+        ];
+
+        if (in_array($value, $allowed, true)) {
+            return $value;
+        }
+
+        return self::None;
+    }
 }
