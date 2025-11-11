@@ -37,39 +37,29 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
 
 /* -------- IMPORTED CLASSES -------- */
 
-use Barion\Enumerations\{
-    BarionEnvironment,
-    QRCodeSize
-};
+use Barion\Enumerations\BarionEnvironment;
+use Barion\Enumerations\QRCodeSize;
 use Barion\Exceptions\BarionException;
-use Barion\Models\{
-    BaseResponseModel
-};
-use Barion\Models\Error\{
-    ApiErrorModel
-};
+use Barion\Models\BaseResponseModel;
+use Barion\Models\Error\ApiErrorModel;
 use CurlHandle;
-use Barion\Models\Payment\{
-    PreparePaymentRequestModel,
-    PreparePaymentResponseModel,
-    FinishReservationRequestModel,
-    FinishReservationResponseModel,
-    GetPaymentStateRequestModel,
-    GetPaymentStateResponseModel,
-    CaptureRequestModel,
-    CaptureResponseModel,
-    CancelAuthorizationRequestModel,
-    CancelAuthorizationResponseModel,
-    Complete3DSPaymentRequestModel,
-    Complete3DSPaymentResponseModel,
-    PaymentStateRequestModel,
-    PaymentStateResponseModel,
-    PaymentQRRequestModel
-};
-use Barion\Models\Refund\{
-    RefundRequestModel,
-    RefundResponseModel
-};
+use Barion\Models\Payment\PreparePaymentRequestModel;
+use Barion\Models\Payment\PreparePaymentResponseModel;
+use Barion\Models\Payment\FinishReservationRequestModel;
+use Barion\Models\Payment\FinishReservationResponseModel;
+use Barion\Models\Payment\GetPaymentStateRequestModel;
+use Barion\Models\Payment\GetPaymentStateResponseModel;
+use Barion\Models\Payment\CaptureRequestModel;
+use Barion\Models\Payment\CaptureResponseModel;
+use Barion\Models\Payment\CancelAuthorizationRequestModel;
+use Barion\Models\Payment\CancelAuthorizationResponseModel;
+use Barion\Models\Payment\Complete3DSPaymentRequestModel;
+use Barion\Models\Payment\Complete3DSPaymentResponseModel;
+use Barion\Models\Payment\PaymentStateRequestModel;
+use Barion\Models\Payment\PaymentStateResponseModel;
+use Barion\Models\Payment\PaymentQRRequestModel;
+use Barion\Models\Refund\RefundRequestModel;
+use Barion\Models\Refund\RefundResponseModel;
 
 /* -------- CLASS DEFINITION -------- */
 
@@ -77,7 +67,7 @@ class BarionClient
 {
     /* -------- CONSTANTS -------- */
 
-    private const MINIMUM_PHP_VERSION               = "8.2";
+    private const MINIMUM_PHP_VERSION               = "7.4";
 
     public const BARION_API_URL_PROD               = "https://api.barion.com";
     public const BARION_WEB_URL_PROD               = "https://secure.barion.com/Pay";
@@ -94,15 +84,15 @@ class BarionClient
     public const API_ENDPOINT_CANCELAUTHORIZATION  = "/Payment/CancelAuthorization";
     public const API_ENDPOINT_3DS_COMPLETE         = "/Payment/Complete";
 
-    private BarionEnvironment $Environment;
+    private $Environment;
 
-    private int $APIVersion;
-    private string $POSKey;
+    private $APIVersion;
+    private $POSKey;
 
-    private string $BARION_API_URL = "";
-    private string $BARION_WEB_URL = "";
+    private $BARION_API_URL = "";
+    private $BARION_WEB_URL = "";
 
-    private bool $UseBundledRootCertificates;
+    private $UseBundledRootCertificates;
 
     /**
      * Create a new instance of the Barion API client.
@@ -398,22 +388,13 @@ class BarionClient
     }
 
     /* -------- CURL HTTP REQUEST IMPLEMENTATIONS -------- */
-
-    /**
-     * Managing HTTP POST requests
-     *
-     * @param string $url The URL of the API endpoint
-     * @param object $data The data object to be sent to the endpoint
-     * @return string|bool Returns the response of the API
-     */
-    private function PostToBarion(string $url, object $data): string|bool
+    private function PostToBarion($url, $data)
     {
         $ch = curl_init();
-        $posKey = $this->POSKey;
-        
+
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         if ($userAgent == "") {
-            $cver = (array)curl_version();
+            $cver = curl_version();
             $userAgent = "curl/" . $cver["version"] . " " .$cver["ssl_version"];
         }
 
@@ -423,13 +404,34 @@ class BarionClient
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json", 
-            "User-Agent: $userAgent",
-            "x-pos-key: $posKey"
-        ]);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "User-Agent: $userAgent"));
 
-        return $this->PostWithCurl($ch);
+        if(substr(phpversion(), 0, 3) < 5.6) {
+            curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+        }
+
+        if ($this->UseBundledRootCertificates) {
+            curl_setopt($ch, CURLOPT_CAINFO, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'ssl', 'cacert.pem')));
+
+            if ($this->Environment == BarionEnvironment::Test) {
+                curl_setopt($ch, CURLOPT_CAPATH, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'ssl', 'gd_bundle-g2.crt')));
+            }
+        }
+
+        $output = curl_exec($ch);
+        if ($err_nr = curl_errno($ch)) {
+            $error = new ApiErrorModel();
+            $error->ErrorCode = "CURL_ERROR";
+            $error->Title = "CURL Error #" . $err_nr;
+            $error->Description = curl_error($ch);
+
+            $response = new BaseResponseModel();
+            $response->Errors = array($error);
+            $output = json_encode($response);
+        }
+        curl_close($ch);
+
+        return $output;
     }
 
     /**
@@ -461,35 +463,5 @@ class BarionClient
         ]);
 
         return $this->PostWithCurl($ch);
-    }
-
-    /**
-     * @param CurlHandle|false $ch
-     * @return bool|string
-     */
-    private function PostWithCurl(CurlHandle|false $ch): string|bool
-    {
-        if ($this->UseBundledRootCertificates) {
-            curl_setopt($ch, CURLOPT_CAINFO, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'SSL', 'cacert.pem')));
-
-            if ($this->Environment == BarionEnvironment::Test) {
-                curl_setopt($ch, CURLOPT_CAPATH, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'SSL', 'gd_bundle-g2.crt')));
-            }
-        }
-
-        $output = curl_exec($ch);
-        if ($err_nr = curl_errno($ch)) {
-            $error = new ApiErrorModel();
-            $error->ErrorCode = "CURL_ERROR";
-            $error->Title = "CURL Error #" . $err_nr;
-            $error->Description = curl_error($ch);
-
-            $response = new BaseResponseModel();
-            $response->Errors = array($error);
-            $output = json_encode($response);
-        }
-        curl_close($ch);
-
-        return $output;
     }
 }
