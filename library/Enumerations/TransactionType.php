@@ -64,4 +64,21 @@ class TransactionType
     const StornoUnSuccessfulRefundToBankAccount = "StornoUnSuccessfulRefundToBankAccount";
     const BankTransferPaymentFee = "BankTransferPaymentFee";
     const BarionBalanceProcessingFee = "BarionBalanceProcessingFee";
+
+    /**
+     * Safe enum conversion for PHP 7.4+
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function from($value)
+    {
+        $constants = (new \ReflectionClass(__CLASS__))->getConstants();
+
+        if ($value !== null && in_array($value, $constants, true)) {
+            return $value;
+        }
+
+        return self::Unspecified;
+    }
 }

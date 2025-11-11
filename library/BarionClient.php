@@ -434,42 +434,49 @@ class BarionClient
     }
 
     /**
-     * Managing HTTP GET requests
+     * Managing HTTP GET requests (PHP 7.4 compatible)
      *
-     * @param string $url The URL of the API endpoint
+     * @param string $url  The URL of the API endpoint
      * @param object $data The data object to be sent to the endpoint
-     * @return mixed|string Returns the response of the API
+     * @return string|bool Returns the response of the API
      */
     private function GetFromBarion($url, $data)
     {
         $ch = curl_init();
+        $posKey = $this->POSKey;
 
         $getData = http_build_query($data);
         $fullUrl = $url . '?' . $getData;
 
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
-        if ($userAgent == "") {
+        $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        if ($userAgent === "") {
             $cver = curl_version();
-            $userAgent = "curl/" . $cver["version"] . " " .$cver["ssl_version"];
+            $userAgent = "curl/" . $cver["version"] . " " . $cver["ssl_version"];
         }
 
         curl_setopt($ch, CURLOPT_URL, $fullUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("User-Agent: $userAgent"));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "User-Agent: $userAgent",
+            "x-pos-key: $posKey"
+        ));
 
-        if(substr(phpversion(), 0, 3) < 5.6) {
+        // Régi PHP-hez SSL fix
+        if (version_compare(PHP_VERSION, '5.6', '<')) {
             curl_setopt($ch, CURLOPT_SSLVERSION, 6);
         }
 
+        // Bundled root certs használata (ha be van kapcsolva)
         if ($this->UseBundledRootCertificates) {
-            curl_setopt($ch, CURLOPT_CAINFO, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'ssl', 'cacert.pem')));
+            curl_setopt($ch, CURLOPT_CAINFO, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'SSL', 'cacert.pem')));
 
             if ($this->Environment == BarionEnvironment::Test) {
-                curl_setopt($ch, CURLOPT_CAPATH, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'ssl', 'gd_bundle-g2.crt')));
+                curl_setopt($ch, CURLOPT_CAPATH, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'SSL', 'gd_bundle-g2.crt')));
             }
         }
 
         $output = curl_exec($ch);
+
         if ($err_nr = curl_errno($ch)) {
             $error = new ApiErrorModel();
             $error->ErrorCode = "CURL_ERROR";
@@ -480,8 +487,8 @@ class BarionClient
             $response->Errors = array($error);
             $output = json_encode($response);
         }
-        curl_close($ch);
 
+        curl_close($ch);
         return $output;
     }
 }
