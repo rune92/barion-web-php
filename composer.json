@@ -3,7 +3,7 @@
     "description": "PHP libary for Barion Smart Gateway API integration",
     "type": "library",
     "require": {
-        "php": ">=8.2",
+        "php": ">=7.4",
         "ext-curl": "*"
     },
     "license": "Apache-2.0",
