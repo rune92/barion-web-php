@@ -41,7 +41,7 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * 
      * @var PaymentType
      */
-    public PaymentType $PaymentType;
+    public $PaymentType;
 
     /** 
      * Timespan of the period the payment should be reserved for.
@@ -49,7 +49,7 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * 
      * @var ?string
      */
-    public ?string $ReservationPeriod;
+    public $ReservationPeriod;
 
     /** 
      * Timespan of the period the payment should be available for capturing after authorization.
@@ -57,14 +57,14 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * 
      * @var ?string
      */
-    public ?string $DelayedCapturePeriod;
+    public $DelayedCapturePeriod;
 
     /** 
      * Timespan of the period the payment can be completed on the Barion Smart Gateway.
      * 
      * @var string
      */
-    public string $PaymentWindow;
+    public $PaymentWindow;
 
     /** 
      * Flag indicating if guest checkout is available for the payment.
@@ -85,7 +85,7 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * 
      * @var string
      */
-    public string $PaymentRequestId;
+    public ?string $PaymentRequestId;
 
     /** 
      * Hint of a payer e-mail address the Barion Smart Gateway should pre-fill for the user.
@@ -106,7 +106,7 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * 
      * @var UILocale
      */
-    public UILocale $Locale;
+    public $Locale;
 
     /** 
      * The order number of the payment, specified by the shop.
@@ -162,7 +162,7 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * 
      * @var Currency
      */
-    public Currency $Currency;
+    public $Currency;
 
     /** 
      * Information about the cardholder name in case of a 3D-Secure card payment process.
@@ -211,14 +211,14 @@ class PreparePaymentRequestModel extends BaseRequestModel implements IPaymentTra
      * 
      * @var RecurrenceType
      */
-    public RecurrenceType $RecurrenceType;
+    public $RecurrenceType;
 
     /** 
      * Challenge preference indicator for a 3D-Secure card payment process.
      * 
      * @var ChallengePreference
      */
-    public ChallengePreference $ChallengePreference;
+    public $ChallengePreference;
 
     /** 
      * The trace id of the 3D-Secure payment flow.

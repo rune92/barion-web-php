@@ -53,7 +53,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var AccountCreationIndicator
      */  
-    public string $AccountCreationIndicator;
+    public ?string $AccountCreationIndicator;
     
     /** 
      * ISO-8601 format timestamp of the last change of the payer account.
@@ -67,7 +67,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var AccountChangeIndicator
      */  
-    public string $AccountChangeIndicator;
+    public ?string $AccountChangeIndicator;
     
     /** 
      * ISO-8601 format timestamp of the last password change of the payer account.
@@ -81,7 +81,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var PasswordChangeIndicator
      */  
-    public string $PasswordChangeIndicator;
+    public ?string $PasswordChangeIndicator;
     
     /** 
      * Number of successful purchases during the last six months made by the payer account.
@@ -102,7 +102,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var ShippingAddressUsageIndicator
      */  
-    public string $ShippingAddressUsageIndicator;
+    public ?string $ShippingAddressUsageIndicator;
     
     /** 
      * ISO-8601 format timestamp when a payment method was last added to the payer account.
@@ -144,7 +144,7 @@ class PayerAccountInformationModel implements IBarionModel
      * 
      * @var SuspiciousActivityIndicator
      */  
-    public string $SuspiciousActivityIndicator;
+    public ?string $SuspiciousActivityIndicator;
 
     function __construct()
     {
