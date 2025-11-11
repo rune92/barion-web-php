@@ -42,7 +42,6 @@ use Barion\Enumerations\QRCodeSize;
 use Barion\Exceptions\BarionException;
 use Barion\Models\BaseResponseModel;
 use Barion\Models\Error\ApiErrorModel;
-use CurlHandle;
 use Barion\Models\Payment\PreparePaymentRequestModel;
 use Barion\Models\Payment\PreparePaymentResponseModel;
 use Barion\Models\Payment\FinishReservationRequestModel;
@@ -99,11 +98,11 @@ class BarionClient
      *
      * @param string $poskey The secret POSKey of your shop
      * @param int $version The version of the Barion API
-     * @param BarionEnvironment $env The environment to connect to
+     * @param string $env The environment to connect to
      * @param bool $useBundledRootCerts Set this to true to use the library-bundled root certificate chain for SSL (only recommended as a last resort, if you are having connection problems)
      * @throws BarionException
      */
-    function __construct(string $poskey, int $version = 2, BarionEnvironment $env = BarionEnvironment::Prod, bool $useBundledRootCerts = false)
+    function __construct(string $poskey, int $version = 2, string $env = BarionEnvironment::Prod, bool $useBundledRootCerts = false)
     {
         // check for minimum PHP version
         if (version_compare(phpversion(), BarionClient::MINIMUM_PHP_VERSION, '<')) {
@@ -374,7 +373,7 @@ class BarionClient
      * @throws BarionException
      *@deprecated
      */
-    public function GetPaymentQRImage(string $username, string $password, string $paymentId, QRCodeSize $qrCodeSize = QRCodeSize::Large): string|bool
+    public function GetPaymentQRImage(string $username, string $password, string $paymentId, string $qrCodeSize = QRCodeSize::Large)
     {
         if ($this->APIVersion != 1) {
             throw new BarionException("Incorrect API version for QR Code endpoint! Current: $this->APIVersion. Expected: 1.");
@@ -439,29 +438,50 @@ class BarionClient
      *
      * @param string $url The URL of the API endpoint
      * @param object $data The data object to be sent to the endpoint
-     * @return string|bool Returns the response of the API
+     * @return mixed|string Returns the response of the API
      */
-    private function GetFromBarion(string $url, object $data): string|bool
+    private function GetFromBarion($url, $data)
     {
         $ch = curl_init();
-        $posKey = $this->POSKey;
 
         $getData = http_build_query($data);
         $fullUrl = $url . '?' . $getData;
-        
+
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         if ($userAgent == "") {
-            $cver = (array)curl_version();
+            $cver = curl_version();
             $userAgent = "curl/" . $cver["version"] . " " .$cver["ssl_version"];
         }
 
         curl_setopt($ch, CURLOPT_URL, $fullUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "User-Agent: $userAgent",
-            "x-pos-key: $posKey"
-        ]);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("User-Agent: $userAgent"));
 
-        return $this->PostWithCurl($ch);
+        if(substr(phpversion(), 0, 3) < 5.6) {
+            curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+        }
+
+        if ($this->UseBundledRootCertificates) {
+            curl_setopt($ch, CURLOPT_CAINFO, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'ssl', 'cacert.pem')));
+
+            if ($this->Environment == BarionEnvironment::Test) {
+                curl_setopt($ch, CURLOPT_CAPATH, join(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'ssl', 'gd_bundle-g2.crt')));
+            }
+        }
+
+        $output = curl_exec($ch);
+        if ($err_nr = curl_errno($ch)) {
+            $error = new ApiErrorModel();
+            $error->ErrorCode = "CURL_ERROR";
+            $error->Title = "CURL Error #" . $err_nr;
+            $error->Description = curl_error($ch);
+
+            $response = new BaseResponseModel();
+            $response->Errors = array($error);
+            $output = json_encode($response);
+        }
+        curl_close($ch);
+
+        return $output;
     }
 }

@@ -18,10 +18,10 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-enum ChallengePreference : string
+class ChallengePreference : string
 {
-    case Unspecified = "";
-    case NoPreference = "NoPreference";
-    case ChallengeRequired = "ChallengeRequired";
-    case NoChallengeNeeded = "NoChallengeNeeded";
+    const Unspecified = "";
+    const NoPreference = "NoPreference";
+    const ChallengeRequired = "ChallengeRequired";
+    const NoChallengeNeeded = "NoChallengeNeeded";
 }

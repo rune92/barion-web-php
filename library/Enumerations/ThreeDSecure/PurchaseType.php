@@ -18,12 +18,12 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-enum PurchaseType : string
+class PurchaseType
 {
-    case Unspecified = "";
-    case GoodsAndServicePurchase = "GoodsAndServicePurchase";
-    case CheckAcceptance = "CheckAcceptance";
-    case AccountFunding = "AccountFunding";
-    case QuasiCashTransaction = "QuasiCashTransaction";
-    case PrePaidVacationAndLoan = "PrePaidVacationAndLoan";
+    const Unspecified = "";
+    const GoodsAndServicePurchase = "GoodsAndServicePurchase";
+    const CheckAcceptance = "CheckAcceptance";
+    const AccountFunding = "AccountFunding";
+    const QuasiCashTransaction = "QuasiCashTransaction";
+    const PrePaidVacationAndLoan = "PrePaidVacationAndLoan";
 }

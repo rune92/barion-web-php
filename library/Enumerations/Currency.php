@@ -18,13 +18,13 @@
 
 namespace Barion\Enumerations;
 
-enum Currency : string
+class Currency
 {
-    case Unspecified = "Unspecified";
-    case HUF = "HUF";
-    case EUR = "EUR";
-    case USD = "USD";
-    case CZK = "CZK";
-    case RON = "RON";
-    case PLN = "PLN";
+    const Unspecified = "Unspecified";
+    const HUF = "HUF";
+    const EUR = "EUR";
+    const USD = "USD";
+    const CZK = "CZK";
+    const RON = "RON";
+    const PLN = "PLN";
 }

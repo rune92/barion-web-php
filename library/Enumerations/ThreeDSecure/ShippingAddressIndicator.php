@@ -18,14 +18,14 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-enum ShippingAddressIndicator : string
+class ShippingAddressIndicator
 {
-    case Unspecified = "";
-    case ShipToCardholdersBillingAddress = "ShipToCardholdersBillingAddress";
-    case ShipToAnotherVerifiedAddress = "ShipToAnotherVerifiedAddress";
-    case ShipToDifferentAddress = "ShipToDifferentAddress";
-    case ShipToStore = "ShipToStore";
-    case DigitalGoods = "DigitalGoods";
-    case TravelAndEventTickets = "TravelAndEventTickets";
-    case Other = "Other";
+    const Unspecified = "";
+    const ShipToCardholdersBillingAddress = "ShipToCardholdersBillingAddress";
+    const ShipToAnotherVerifiedAddress = "ShipToAnotherVerifiedAddress";
+    const ShipToDifferentAddress = "ShipToDifferentAddress";
+    const ShipToStore = "ShipToStore";
+    const DigitalGoods = "DigitalGoods";
+    const TravelAndEventTickets = "TravelAndEventTickets";
+    const Other = "Other";
 }

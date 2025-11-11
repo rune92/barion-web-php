@@ -18,25 +18,25 @@
 
 namespace Barion\Enumerations;
 
-enum TransactionStatus : string 
+class TransactionStatus
 {
-    case Prepared = "Prepared";
-    case Started = "Started";
-    case Succeeded = "Succeeded";
-    case Timeout = "Timeout";
-    case ShopIsDeleted = "ShopIsDeleted";
-    case ShopIsClosed = "ShopIsClosed";
-    case Rejected = "Rejected";
-    case RejectedByShop = "RejectedByShop";
-    case Storno = "Storno";
-    case Reserved = "Reserved";
-    case Deleted = "Deleted";
-    case Expired = "Expired";
-    case Authorized = "Authorized";
-    case Reversed = "Reversed";
-    case InvalidPaymentRecord = "InvalidPaymentRecord";
-    case PaymentTimeOut = "PaymentTimeOut";
-    case InvalidPaymentStatus = "InvalidPaymentStatus";
-    case PaymentSenderOrRecipientIsInvalid = "PaymentSenderOrRecipientIsInvalid";
-    case Unknown = "Unknown";
+    const Prepared = "Prepared";
+    const Started = "Started";
+    const Succeeded = "Succeeded";
+    const Timeout = "Timeout";
+    const ShopIsDeleted = "ShopIsDeleted";
+    const ShopIsClosed = "ShopIsClosed";
+    const Rejected = "Rejected";
+    const RejectedByShop = "RejectedByShop";
+    const Storno = "Storno";
+    const Reserved = "Reserved";
+    const Deleted = "Deleted";
+    const Expired = "Expired";
+    const Authorized = "Authorized";
+    const Reversed = "Reversed";
+    const InvalidPaymentRecord = "InvalidPaymentRecord";
+    const PaymentTimeOut = "PaymentTimeOut";
+    const InvalidPaymentStatus = "InvalidPaymentStatus";
+    const PaymentSenderOrRecipientIsInvalid = "PaymentSenderOrRecipientIsInvalid";
+    const Unknown = "Unknown";
 }

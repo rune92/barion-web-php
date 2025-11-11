@@ -18,8 +18,8 @@
 
 namespace Barion\Enumerations;
 
-enum BarionEnvironment : string
+class BarionEnvironment
 {
-    case Test = "test";
-    case Prod = "prod";
+    const Test = "test";
+    const Prod = "prod";
 }

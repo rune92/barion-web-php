@@ -18,12 +18,12 @@
 
 namespace Barion\Enumerations;
 
-enum FundingSourceType : string
+class FundingSourceType
 {
-    case All = "All";
-    case Balance = "Balance";
-    case Bankcard = "Bankcard";
-    case BankTransfer = "BankTransfer";
-    case ApplePay = "ApplePay";
-    case GooglePay = "GooglePay";
+    const All = "All";
+    const Balance = "Balance";
+    const Bankcard = "Bankcard";
+    const BankTransfer = "BankTransfer";
+    const ApplePay = "ApplePay";
+    const GooglePay = "GooglePay";
 }

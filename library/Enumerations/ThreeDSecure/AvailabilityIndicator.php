@@ -18,9 +18,9 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-enum AvailabilityIndicator : string
+class AvailabilityIndicator : string
 {
-    case Unspecified = "";
-    case MerchandiseAvailable = "MerchandiseAvailable";
-    case FutureAvailability = "FutureAvailability";
+    const Unspecified = "";
+    const MerchandiseAvailable = "MerchandiseAvailable";
+    const FutureAvailability = "FutureAvailability";
 }

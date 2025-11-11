@@ -18,17 +18,17 @@
 
 namespace Barion\Enumerations;
 
-enum PaymentStatus : string
+class PaymentStatus
 {
-    case Prepared = "Prepared";
-    case Started = "Started";
-    case InProgress = "InProgress";
-    case Waiting = "Waiting";
-    case Reserved = "Reserved";
-    case Authorized = "Authorized";
-    case Canceled = "Canceled";
-    case Succeeded = "Succeeded";
-    case Failed = "Failed";
-    case PartiallySucceeded = "PartiallySucceeded";
-    case Expired = "Expired";
+    const Prepared = "Prepared";
+    const Started = "Started";
+    const InProgress = "InProgress";
+    const Waiting = "Waiting";
+    const Reserved = "Reserved";
+    const Authorized = "Authorized";
+    const Canceled = "Canceled";
+    const Succeeded = "Succeeded";
+    const Failed = "Failed";
+    const PartiallySucceeded = "PartiallySucceeded";
+    const Expired = "Expired";
 }

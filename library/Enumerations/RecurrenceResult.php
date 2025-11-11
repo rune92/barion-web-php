@@ -18,11 +18,11 @@
 
 namespace Barion\Enumerations;
 
-enum RecurrenceResult : string
+class RecurrenceResult
 {
-    case None = "None";
-    case Successful = "Successful";
-    case Failed = "Failed";
-    case NotFound = "NotFound";
-    case ThreeDSAuthenticationRequired = "ThreeDSAuthenticationRequired";
+    const None = "None";
+    const Successful = "Successful";
+    const Failed = "Failed";
+    const NotFound = "NotFound";
+    const ThreeDSAuthenticationRequired = "ThreeDSAuthenticationRequired";
 }
