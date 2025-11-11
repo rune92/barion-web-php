@@ -18,7 +18,7 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-class AvailabilityIndicator : string
+class AvailabilityIndicator
 {
     const Unspecified = "";
     const MerchandiseAvailable = "MerchandiseAvailable";

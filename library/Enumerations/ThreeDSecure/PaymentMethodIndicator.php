@@ -18,7 +18,7 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-class PaymentMethodIndicator : string
+class PaymentMethodIndicator
 {
     const Unspecified = "";
     const NoAccount = "NoAccount";

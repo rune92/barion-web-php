@@ -18,7 +18,7 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-class ReOrderIndicator : string
+class ReOrderIndicator
 {
     const Unspecified = "";
     const FirstTimeOrdered = "FirstTimeOrdered";

@@ -18,7 +18,7 @@
 
 namespace Barion\Enumerations\ThreeDSecure;
 
-class ChallengePreference : string
+class ChallengePreference
 {
     const Unspecified = "";
     const NoPreference = "NoPreference";
