@@ -27,7 +27,7 @@ class JSON {
      * @param string $propertyName
      * @return ?string The value of the property as string
      */ 
-    public static function getString(mixed $json, string $propertyName): ?string
+    public static function getString($json, string $propertyName): ?string
     {
         if (!isset($json[$propertyName])) {
             return null;
@@ -49,7 +49,7 @@ class JSON {
      * @param string $propertyName
      * @return ?int The value of the property as int
      */ 
-    public static function getInt(mixed $json, string $propertyName): ?int
+    public static function getInt($json, string $propertyName): ?int
     {
         if (!isset($json[$propertyName])) {
             return null;
@@ -72,7 +72,7 @@ class JSON {
      * @param string $propertyName
      * @return ?float The value of the property as float
      */ 
-    public static function getFloat(mixed $json, string $propertyName): ?float
+    public static function getFloat($json, string $propertyName): ?float
     {
         if (!isset($json[$propertyName])) {
             return null;
@@ -94,7 +94,7 @@ class JSON {
      * @param string $propertyName
      * @return ?bool The value of the property as bool
      */ 
-    public static function getBool(mixed $json, string $propertyName): ?bool
+    public static function getBool($json, string $propertyName): ?bool
     {
         if (!isset($json[$propertyName])) {
             return null;
@@ -138,7 +138,7 @@ class JSON {
      * @param string $propertyName
      * @return ?object The value of the property as object
      */ 
-    public static function getObject(mixed $json, string $propertyName): ?object
+    public static function getObject($json, string $propertyName): ?object
     {
         if (!isset($json[$propertyName])) {
             return null;
